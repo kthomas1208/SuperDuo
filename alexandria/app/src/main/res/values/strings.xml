@@ -41,4 +41,6 @@
     <string name="barcode_success">Barcode read successfully</string>
     <string name="barcode_failure">No barcode captured</string>
     <string name="barcode_error">"Error reading barcode: %1$s"</string>
+    <string name="no_authors">No authors found</string>
+    <string name="no_connection">Error getting book info. Ensure you are connected to the internet.</string>
 </resources>

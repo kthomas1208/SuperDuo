@@ -68,18 +68,24 @@ public class scoresAdapter extends CursorAdapter
             container.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                     , ViewGroup.LayoutParams.MATCH_PARENT));
             TextView match_day = (TextView) v.findViewById(R.id.matchday_textview);
-            match_day.setText(Utilities.getMatchDay(cursor.getInt(COL_MATCHDAY),
+            match_day.setText(Utilities.getMatchDay(mContext, cursor.getInt(COL_MATCHDAY),
                     cursor.getInt(COL_LEAGUE)));
             TextView league = (TextView) v.findViewById(R.id.league_textview);
-            league.setText(Utilities.getLeague(cursor.getInt(COL_LEAGUE)));
+            league.setText(Utilities.getLeague(mContext, cursor.getInt(COL_LEAGUE)));
             Button share_button = (Button) v.findViewById(R.id.share_button);
+            share_button.setContentDescription(
+                    mContext.getString(R.string.share_score_for) +
+                    mHolder.home_name.getText() +
+                    mContext.getString(R.string.versus) +
+                    mHolder.away_name.getText() +
+                    mContext.getString(R.string.the_score_is) +
+                    mHolder.score.getText());
             share_button.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     //add Share Action
-                    context.startActivity(createShareForecastIntent(mHolder.home_name.getText()+" "
-                    +mHolder.score.getText()+" "+mHolder.away_name.getText() + " "));
+                    context.startActivity(createShareForecastIntent(mHolder.home_name.getText() + " "
+                            + mHolder.score.getText() + " " + mHolder.away_name.getText() + " "));
                 }
             });
         }

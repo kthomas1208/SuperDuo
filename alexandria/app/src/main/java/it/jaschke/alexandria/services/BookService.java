@@ -157,14 +157,16 @@ public class BookService extends IntentService {
         final String IMG_URL = "thumbnail";
 
         try {
+            if(bookJsonString == null) {
+                sendErrorMessage(getResources().getString(R.string.no_connection));
+                return;
+            }
             JSONObject bookJson = new JSONObject(bookJsonString);
             JSONArray bookArray;
             if(bookJson.has(ITEMS)){
                 bookArray = bookJson.getJSONArray(ITEMS);
             }else{
-                Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
-                messageIntent.putExtra(MainActivity.MESSAGE_KEY,getResources().getString(R.string.not_found));
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(messageIntent);
+                sendErrorMessage(getResources().getString(R.string.not_found));
                 return;
             }
 
@@ -199,6 +201,12 @@ public class BookService extends IntentService {
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Error ", e);
         }
+    }
+
+    private void sendErrorMessage(String message) {
+        Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
+        messageIntent.putExtra(MainActivity.MESSAGE_KEY,message);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(messageIntent);
     }
 
     private void writeBackBook(String ean, String title, String subtitle, String desc, String imgUrl) {

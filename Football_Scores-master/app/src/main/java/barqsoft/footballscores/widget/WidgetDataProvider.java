@@ -49,9 +49,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         // data. Therefore we need to clear (and finally restore) the calling identity so
         // that calls use our process and permission
         final long identityToken = Binder.clearCallingIdentity();
-
-        Date fragmentdate = new Date(System.currentTimeMillis()+((1-2)*86400000)); //// TODO: 2/16/16 change back to today's date
-        //Date fragmentdate = new Date(System.currentTimeMillis());
+        Date fragmentdate = new Date(System.currentTimeMillis());
         SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
         String date = mformat.format(fragmentdate);
         String[] today = new String[1];
